@@ -5,11 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InformationResponse {
-	private String info;
-	private String id;
+public class NewCapture {
+
+	private ArrayList<NewCaptureItem> captureItemList;
+
 }

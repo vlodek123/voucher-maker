@@ -25,4 +25,10 @@ public class ApplicationExceptionHandler {
 		ErrorResponse error = new ErrorResponse(ex.getLocalizedMessage());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
+
+	@ExceptionHandler(VoucherCodeIsNullException.class)
+	public ResponseEntity<Object> handleVoucherCodeIsNullException(VoucherCodeIsNullException ex) {
+		ErrorResponse error = new ErrorResponse(ex.getLocalizedMessage());
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
 }

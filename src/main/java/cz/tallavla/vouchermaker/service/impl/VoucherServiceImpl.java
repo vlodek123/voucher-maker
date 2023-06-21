@@ -6,8 +6,8 @@ import cz.tallavla.vouchermaker.exception.WrongVoucherActionException;
 import cz.tallavla.vouchermaker.mappers.Mappers;
 import cz.tallavla.vouchermaker.model.controller.InformationResponse;
 import cz.tallavla.vouchermaker.model.controller.ReturnVoucher;
-import cz.tallavla.vouchermaker.model.controller.VoucherAction;
 import cz.tallavla.vouchermaker.model.repository.Voucher;
+import cz.tallavla.vouchermaker.model.service.CaptureDTO;
 import cz.tallavla.vouchermaker.model.service.VoucherDTO;
 import cz.tallavla.vouchermaker.repository.VoucherRepository;
 import cz.tallavla.vouchermaker.service.VoucherService;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 import java.util.Optional;
 
 import static cz.tallavla.vouchermaker.utils.Constants.ACTIVATE;
@@ -70,8 +69,6 @@ public class VoucherServiceImpl implements VoucherService {
 
 		Optional<Voucher> voucherFound = voucherRepository.findByVoucherCode(code);
 
-		System.out.println(voucherFound);
-
 		if (voucherFound.isEmpty()) {
 			throw new VoucherNotFoundException("Voucher not found.");
 		} else {
@@ -86,8 +83,6 @@ public class VoucherServiceImpl implements VoucherService {
 		log.info("voucher {} action: {}", code, action);
 
 		Optional<Voucher> voucherForAction = voucherRepository.findByVoucherCode(code);
-
-		System.out.println(voucherForAction);
 
 		if (voucherForAction.isEmpty()) {
 			throw new VoucherNotFoundException("Voucher not found.");
@@ -106,11 +101,31 @@ public class VoucherServiceImpl implements VoucherService {
 
 		try {
 			Voucher updatedVoucher = voucherRepository.save(voucher);
-			return InformationResponse.builder().info(String.format("Voucher was %sD.", action)).voucherCode(updatedVoucher.getVoucherCode()).build();
+			return InformationResponse.builder().info(String.format("Voucher was %sD.", action)).id(updatedVoucher.getVoucherCode()).build();
 		} catch (Exception e) {
 			throw new WrongVoucherActionException(String.format("Not possible to %s voucher %s, persistence error", action, voucher.getVoucherCode()));
 		}
 
+	}
+
+	@Override
+	public InformationResponse actCapture(CaptureDTO captureDTO) {
+
+		System.out.println(mappers.getJsonString(captureDTO));
+		// uložit capture s false
+		// do captura items uložit - OneToMany ze strany vouchers dodelat processed vložit s false
+
+		// v cyklu vytáhnout postupně všechny vouchery v capture
+		// odečíst capture amount,
+		// pokud menší než 0 vrátit 400
+		// dát do listu upravený voucher
+		// pokud vše ok uložit změny do voucheru, pokud amount = 0 deactivate
+		// změnit processed z  false na true
+		// vrátit pozitivní response jinak 400
+
+		InformationResponse response = InformationResponse.builder().info("Capture processed, capture ID:").id("123").build();
+
+		return response;
 	}
 
 	private boolean isActionPossible(String action, boolean active) {
