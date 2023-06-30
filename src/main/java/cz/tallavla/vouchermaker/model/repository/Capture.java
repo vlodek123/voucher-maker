@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "captures")
@@ -29,6 +30,22 @@ public class Capture {
 
 	@Column(nullable = false)
 	private boolean processed;
+	@Column
+	private String reason;
 
+	@OneToMany(mappedBy = "capture")
+	private List<CaptureItem> captureItemList;
+
+	@Override
+	public String toString() {
+		return "Capture{" +
+				"id=" + id +
+				", createdDate=" + createdDate +
+				", numberOfItems=" + numberOfItems +
+				", processed=" + processed +
+				", reason='" + reason + '\'' +
+				", captureItemList=" + captureItemList +
+				'}';
+	}
 }
 

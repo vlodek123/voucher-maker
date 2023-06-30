@@ -1,0 +1,22 @@
+{
+  "id": 10001,
+  "voucherCode": "TE1B-6P8R-7P8B-6L1Z-1G5B-6G1U-5G3R-NO",
+  "amount": 2000.00,
+  "balance": 1750.00,
+  "expirationDate": "2024-06-27T12:19:16.153",
+  "active": true,
+  "captureItemList": [
+    {
+      "id": 30001,
+      "voucherCode": "TE1B-6P8R-7P8B-6L1Z-1G5B-6G1U-5G3R-NO",
+      "captureAmount": 100.00,
+      "processed": true
+    },
+    {
+      "id": 30002,
+      "voucherCode": "TE1B-6P8R-7P8B-6L1Z-1G5B-6G1U-5G3R-NO",
+      "captureAmount": 150.00,
+      "processed": true
+    }
+  ]
+}

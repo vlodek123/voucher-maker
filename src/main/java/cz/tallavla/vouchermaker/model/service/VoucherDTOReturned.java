@@ -1,4 +1,4 @@
-package cz.tallavla.vouchermaker.model.controller;
+package cz.tallavla.vouchermaker.model.service;
 
 import cz.tallavla.vouchermaker.model.repository.CaptureItem;
 import lombok.AllArgsConstructor;
@@ -14,13 +14,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReturnVoucher {
+public class VoucherDTOReturned {
 
 	private Long id;
 	private String voucherCode;
 	private BigDecimal amount;
 	private BigDecimal balance;
 	private LocalDateTime expirationDate;
+	private LocalDateTime createdDate;
 	private boolean active;
-	private List<ReturnCaptureItem> captureItemList;
+	private List<CaptureItemDTOReturned> captureItemList;
 }

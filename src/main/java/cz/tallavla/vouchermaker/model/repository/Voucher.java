@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "vouchers")
@@ -41,4 +42,22 @@ public class Voucher {
 
 	@Column(nullable = false)
 	private boolean active;
+
+	@OneToMany(mappedBy = "voucher")
+	private List<CaptureItem> captureItemList;
+
+	@Override
+	public String toString() {
+		return "Voucher{" +
+				"id=" + id +
+				", voucherCode='" + voucherCode + '\'' +
+				", amount=" + amount +
+				", balance=" + balance +
+				", createdDate=" + createdDate +
+				", lastUpdatedDate=" + lastUpdatedDate +
+				", expirationDate=" + expirationDate +
+				", active=" + active +
+				", captureItemList=" + captureItemList +
+				'}';
+	}
 }

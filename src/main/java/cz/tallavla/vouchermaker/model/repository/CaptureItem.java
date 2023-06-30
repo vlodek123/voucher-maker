@@ -1,7 +1,9 @@
 package cz.tallavla.vouchermaker.model.repository;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.math.BigDecimal;
 
@@ -20,12 +22,32 @@ public class CaptureItem {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "captureItemIdSeq")
 	private Long id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String voucherCode;
 
 	@Column(nullable = false)
 	private BigDecimal captureAmount;
 
 	@Column(nullable = false)
-	private Long captureId;
+	private boolean processed;
+
+	@CreatedBy
+	@ManyToOne
+	@JsonIgnore
+	private Capture capture;
+
+	@CreatedBy
+	@ManyToOne
+	@JsonIgnore
+	private Voucher voucher;
+	@Override
+	public String toString() {
+		return "CaptureItem{" +
+				"id=" + id +
+				", voucherCode='" + voucherCode + '\'' +
+				", captureAmount=" + captureAmount +
+				", processed=" + processed +
+//				", capture=" + capture +
+				'}';
+	}
 }

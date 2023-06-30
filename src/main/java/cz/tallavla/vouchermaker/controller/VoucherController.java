@@ -1,7 +1,7 @@
 package cz.tallavla.vouchermaker.controller;
 
 import cz.tallavla.vouchermaker.exception.VoucherCodeIsNullException;
-import cz.tallavla.vouchermaker.exception.WrongAmountFormatException;
+import cz.tallavla.vouchermaker.exception.WrongFormatException;
 import cz.tallavla.vouchermaker.exception.WrongVoucherActionException;
 import cz.tallavla.vouchermaker.mappers.Mappers;
 import cz.tallavla.vouchermaker.model.controller.*;
@@ -10,6 +10,7 @@ import cz.tallavla.vouchermaker.model.service.CaptureItemDTO;
 import cz.tallavla.vouchermaker.service.VoucherService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,8 @@ public class VoucherController {
 	@Autowired
 	private VoucherService voucherService;
 
+	private final ModelMapper modelMapper = new ModelMapper();
+
 	@PostMapping("/new")
 	public ResponseEntity<ReturnVoucher> createVoucher(@RequestBody NewVoucher newVoucher) {
 
@@ -40,16 +43,17 @@ public class VoucherController {
 		try {
 			amount = new BigDecimal(String.valueOf(newVoucher.getAmount()));
 			log.info("New voucher amount: {}", amount);
-			return new ResponseEntity<>(voucherService.createVoucher(amount), HttpStatus.CREATED);
+			return new ResponseEntity<>(modelMapper.map(voucherService.createVoucher(amount), ReturnVoucher.class), HttpStatus.CREATED);
 		} catch (NumberFormatException ex) {
-			throw new WrongAmountFormatException("Wrong format of amount.");
+			throw new WrongFormatException("Wrong format of amount.");
 		}
 	}
 
 	@GetMapping("/{code}")
 	public ResponseEntity<ReturnVoucher> getVoucher(@PathVariable("code") String code) {
 		log.info("Getting voucher with code {}.", code);
-		return new ResponseEntity<>(voucherService.getVoucher(code), HttpStatus.OK);
+
+		return new ResponseEntity<>(modelMapper.map(voucherService.getVoucher(code), ReturnVoucher.class), HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/{code}/action")
@@ -71,12 +75,27 @@ public class VoucherController {
 
 	@PostMapping("/capture")
 	public ResponseEntity<InformationResponse> captureAction(@RequestBody NewCapture newCapture) {
-		System.out.println(mappers.getJsonString(newCapture));
 
 		return new ResponseEntity<>(voucherService.actCapture(mapCapture(newCapture)), HttpStatus.ACCEPTED);
 	}
 
+	@GetMapping("/capture/{id}")
+	public ResponseEntity<ReturnCapture> getCapture(@PathVariable(value = "id") String id) {
+		long captureId;
+		try {
+			captureId = Long.parseLong(id);
+		} catch (NumberFormatException ex) {
+			throw new WrongFormatException("Capture id not parsable to number.");
+		}
+
+		return new ResponseEntity<>(modelMapper.map(voucherService.getCapture(captureId), ReturnCapture.class), HttpStatus.ACCEPTED);
+	}
+
 	private CaptureDTO mapCapture(NewCapture newCapture) {
+
+		if (!CollectionUtils.isNotEmpty(newCapture.getCaptureItemList())) {
+			throw new VoucherCodeIsNullException("No capture items to process.");
+		}
 
 		CaptureDTO captureDTO = new CaptureDTO(new ArrayList<>());
 
@@ -86,10 +105,9 @@ public class VoucherController {
 			BigDecimal captureAmount;
 			try {
 				captureAmount = new BigDecimal(String.valueOf(captureItem.getCaptureAmount()));
-				log.info("Capture Item amount: {}", captureAmount);
 				captureItemDTO.setCaptureAmount(captureAmount);
 			} catch (NumberFormatException ex) {
-				throw new WrongAmountFormatException("Wrong format of amount.");  //TODO: decline all capture, possible only decline wrong captureItem, not all capture
+				throw new WrongFormatException("Wrong format of amount.");  //TODO: decline all capture, possible only decline wrong captureItem, not all capture
 			}
 
 			if (testVoucherCodeForNull(captureItem.getVoucherCode())) {

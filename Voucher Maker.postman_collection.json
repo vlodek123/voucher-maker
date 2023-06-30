@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "5e3677ff-e7ab-45ae-96a3-0b3386ab8b66",
+		"name": "Voucher Maker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10877400"
+	},
+	"item": [
+		{
+			"name": "new",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Contains ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    //save ID to variables\r",
+							"    pm.collectionVariables.set('VoucherCode', jsonData.voucherCode)\r",
+							"    \r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": \"2000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/voucher/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"voucher",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Voucher",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/voucher/:code",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"voucher",
+						":code"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "{{VoucherCode}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Action",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"deactivate\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/voucher/:code/action",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"voucher",
+						":code",
+						"action"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "{{VoucherCode}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Capture",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Contains ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    //save ID to variables\r",
+							"    pm.collectionVariables.set('CaptureId', jsonData.id)\r",
+							"    \r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"captureItemList\": [\r\n        {\r\n            \"voucherCode\": \"TE1S-6E8C-8Y1F-1A0X-9U2F-0J4D-4N1L-NO\",\r\n            \"captureAmount\": \"100\"\r\n        },\r\n        {\r\n            \"voucherCode\": \"TE1F-6U8A-8F1W-1R1B-0X9R-1Y7O-9D4C-NO\",\r\n            \"captureAmount\": \"150\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/voucher/capture",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"voucher",
+						"capture"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET capture",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/voucher/capture/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"voucher",
+						"capture",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{CaptureId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "VoucherCode",
+			"value": ""
+		},
+		{
+			"key": "CaptureId",
+			"value": ""
+		}
+	]
+}

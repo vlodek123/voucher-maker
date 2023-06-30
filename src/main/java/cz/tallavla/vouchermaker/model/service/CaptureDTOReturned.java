@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,12 +13,19 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VoucherDTO {
+public class CaptureDTOReturned {
 
-	private String voucherCode;
-	private BigDecimal amount;
-	private BigDecimal balance;
-	private LocalDateTime expirationDate;
-	private boolean active;
-	private List<CaptureItemDTO> captureItemList;
+	private Long id;
+
+	private LocalDateTime createdDate;
+
+	private int numberOfItems;
+
+	private boolean processed;
+
+	private String reason;
+
+	private List<CaptureItemDTOReturned> captureItemList;
+
+
 }
