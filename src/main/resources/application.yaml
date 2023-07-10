@@ -8,6 +8,13 @@ spring:
     password: 123456
   jpa:
     show-sql: false
-    generate-ddl: true
+#    generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
+#    sql:
+#      init:
+#        mode: always
+  liquibase:
+    change-log: db/changelog/baseline-changelog.xml
+    user: voucher_admin
+    password: 123456

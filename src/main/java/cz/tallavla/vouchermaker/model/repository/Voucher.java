@@ -46,6 +46,8 @@ public class Voucher {
 	@OneToMany(mappedBy = "voucher")
 	private List<CaptureItem> captureItemList;
 
+	private Long cislo;
+
 	@Override
 	public String toString() {
 		return "Voucher{" +
