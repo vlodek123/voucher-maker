@@ -15,6 +15,6 @@ spring:
 #      init:
 #        mode: always
   liquibase:
-    change-log: db/changelog/baseline-changelog.xml
+    change-log: db/changelog/changelog-master.xml
     user: voucher_admin
     password: 123456
