@@ -1,20 +1,39 @@
 server:
   port: 8085
 
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/voucher
+#    username: voucher_admin
+#    password: 123456
+#  jpa:
+#    show-sql: false
+##    generate-ddl: true
+#    hibernate:
+#      ddl-auto: validate
+##    sql:
+##      init:
+##        mode: always
+#  liquibase:
+#    change-log: db/changelog/baseline-changelog.xml
+#    user: voucher_admin
+#    password: 123456
+
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/voucher
     username: voucher_admin
     password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/voucherdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
   jpa:
-    show-sql: false
-#    generate-ddl: true
     hibernate:
       ddl-auto: validate
-#    sql:
-#      init:
-#        mode: always
-  liquibase:
-    change-log: db/changelog/baseline-changelog.xml
+
+  sql:
+    init:
+      mode: always
+
+  flyway:
     user: voucher_admin
     password: 123456

@@ -1,0 +1,1 @@
+alter table capture modify column reason character varying(255) COLLATE utf8mb4_general_ci;

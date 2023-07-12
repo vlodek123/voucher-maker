@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "vouchers")
+//@Table(name = "vouchers")
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -18,10 +18,11 @@ import java.util.List;
 @Getter
 public class Voucher {
 
-	@SequenceGenerator(name = "voucherIdSeq", sequenceName = "vouchers_id_seq", initialValue = 10001, allocationSize = 1)
+//	@SequenceGenerator(name = "voucherIdSeq", sequenceName = "vouchers_id_seq", initialValue = 10001, allocationSize = 1)
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "voucherIdSeq")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "voucherIdSeq")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(nullable = false, unique = true)
@@ -46,7 +47,7 @@ public class Voucher {
 	@OneToMany(mappedBy = "voucher")
 	private List<CaptureItem> captureItemList;
 
-	private Long cislo;
+//	private Long cislo;
 
 	@Override
 	public String toString() {

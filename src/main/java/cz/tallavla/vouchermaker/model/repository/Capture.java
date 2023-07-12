@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "captures")
+//@Table(name = "captures")
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -16,10 +16,11 @@ import java.util.List;
 @Getter
 public class Capture {
 
-	@SequenceGenerator(name = "captureIdSeq", sequenceName = "capture_id_seq", initialValue = 20001, allocationSize = 1)
+//	@SequenceGenerator(name = "captureIdSeq", sequenceName = "capture_id_seq", initialValue = 20001, allocationSize = 1)
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "captureIdSeq")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "captureIdSeq")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@CreationTimestamp

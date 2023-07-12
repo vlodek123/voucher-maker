@@ -8,7 +8,7 @@ import org.springframework.data.annotation.CreatedBy;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "captureItems")
+//@Table(name = "captureItems")
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -16,10 +16,11 @@ import java.math.BigDecimal;
 @Getter
 public class CaptureItem {
 
-	@SequenceGenerator(name = "captureItemIdSeq", sequenceName = "captureItems_id_seq", initialValue = 30001, allocationSize = 1)
+//	@SequenceGenerator(name = "captureItemIdSeq", sequenceName = "captureItems_id_seq", initialValue = 30001, allocationSize = 1)
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "captureItemIdSeq")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "captureItemIdSeq")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(nullable = false)
