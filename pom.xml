@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
+		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cz.tallavla</groupId>
@@ -15,15 +15,26 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<postgresql.version>42.6.0</postgresql.version>
 	</properties>
 	<dependencies>
+		<!-- Spring Boot Starter for Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>2.5.4</version>
 		</dependency>
+		<!-- Core Spring Boot Starter -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>2.5.4</version>
+		</dependency>
+		<!-- Spring Boot Starter for Web Applications -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.5.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
@@ -45,6 +56,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.5.4</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Lombok -->
@@ -89,12 +101,6 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>2.14.2</version>
 		</dependency>
-		<!-- flyway DB -->
-<!--		<dependency>-->
-<!--			<groupId>org.flywaydb</groupId>-->
-<!--			<artifactId>flyway-core</artifactId>-->
-<!--			<version>9.20.0</version>-->
-<!--		</dependency>-->
 
 	</dependencies>
 
@@ -116,7 +122,6 @@
 					<changeSetAuthor>VT</changeSetAuthor>
 					<changelogSchemaName>voucher</changelogSchemaName>
 				</configuration>
-
 				<dependencies>
 					<dependency>
 						<groupId>org.postgresql</groupId>
@@ -124,6 +129,15 @@
 						<version>${postgresql.version}</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>11</source>
+					<target>11</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,10 +1,10 @@
 package cz.tallavla.vouchermaker.model.repository;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
