@@ -8,5 +8,5 @@
   http://www.liquibase.org/xml/ns/pro
   http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
     <include  file="db/changelog/baseline-changelog.xml"/>
-    <include  file="db/changelog/add-cislo-to-voucher.xml"/>
+<!--    <include  file="db/changelog/add-cislo-to-voucher.xml"/>-->
 </databaseChangeLog>

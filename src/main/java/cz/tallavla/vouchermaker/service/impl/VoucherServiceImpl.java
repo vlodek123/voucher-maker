@@ -122,7 +122,7 @@ public class VoucherServiceImpl implements VoucherService {
  	// mapping CaptureDTO to Capture for save
 		CaptureDTOReturned captureForSave = CaptureDTOReturned.builder()
 				.processed(false)
-				.numberOfItems(captureDTO.getCaptureItemList().size())
+				.numberOfItems(captureDTO.getCaptureItemDTOS().size())
 				.build();
 
 		CaptureDTOReturned savedCapture = captureDAOService.saveCapture(captureForSave);
@@ -257,7 +257,7 @@ public class VoucherServiceImpl implements VoucherService {
 
 	private ArrayList<CaptureItemDTOReturned> mapCaptureItemList(CaptureDTO captureDTO, CaptureDTOReturned savedCapture) {
 		ArrayList<CaptureItemDTOReturned> captureItemList = new ArrayList<>();
-		for (CaptureItemDTO item : captureDTO.getCaptureItemList()
+		for (CaptureItemDTO item : captureDTO.getCaptureItemDTOS()
 		) {
 			CaptureItemDTOReturned captureItem = CaptureItemDTOReturned.builder()
 					.capture(savedCapture)

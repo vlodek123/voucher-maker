@@ -93,13 +93,13 @@ public class VoucherController {
 
 	private CaptureDTO mapCapture(NewCapture newCapture) {
 
-		if (!CollectionUtils.isNotEmpty(newCapture.getCaptureItemList())) {
+		if (!CollectionUtils.isNotEmpty(newCapture.getCaptureItems())) {
 			throw new VoucherCodeIsNullException("No capture items to process.");
 		}
 
 		CaptureDTO captureDTO = new CaptureDTO(new ArrayList<>());
 
-		for (NewCaptureItem captureItem : newCapture.getCaptureItemList()
+		for (NewCaptureItem captureItem : newCapture.getCaptureItems()
 		) {
 			CaptureItemDTO captureItemDTO = new CaptureItemDTO();
 			BigDecimal captureAmount;
@@ -115,7 +115,7 @@ public class VoucherController {
 			} else {
 				throw new VoucherCodeIsNullException("Voucher Code is empty."); //TODO: as above
 			}
-			captureDTO.getCaptureItemList().add(captureItemDTO);
+			captureDTO.getCaptureItemDTOS().add(captureItemDTO);
 		}
 		return captureDTO;
 	}
