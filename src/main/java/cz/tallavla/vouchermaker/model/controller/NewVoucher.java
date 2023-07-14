@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NewVoucher {
 
+	//TODO: anotace pro Object Mapper
 	private String amount;
 }
