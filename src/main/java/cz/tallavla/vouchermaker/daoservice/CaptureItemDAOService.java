@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface CaptureItemDAOService {
 
-	public ArrayList<CaptureItemDTOReturned> saveAllCaptureItems(ArrayList<CaptureItemDTOReturned> captureItemListForSave);
+	public ArrayList<CaptureItemDTOReturned> saveAllCaptureItems(ArrayList<CaptureItemDTOReturned> captureItemsForSave);
 
 
 

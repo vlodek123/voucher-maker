@@ -14,14 +14,14 @@ public class VoucherDTOReturned {
 	private LocalDateTime expirationDate;
 	private LocalDateTime createdDate;
 	private boolean active;
-	private List<CaptureItemDTOReturned> captureItemList;
+	private List<CaptureItemDTOReturned> captureItems;
 
 	public static VoucherDTOReturnedBuilder builder() {return new VoucherDTOReturnedBuilder();}
 
 	public VoucherDTOReturned() {
 	}
 
-	public VoucherDTOReturned(Long id, String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime expirationDate, LocalDateTime createdDate, boolean active, List<CaptureItemDTOReturned> captureItemList) {
+	public VoucherDTOReturned(Long id, String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime expirationDate, LocalDateTime createdDate, boolean active, List<CaptureItemDTOReturned> captureItems) {
 		this.id = id;
 		this.voucherCode = voucherCode;
 		this.amount = amount;
@@ -29,7 +29,7 @@ public class VoucherDTOReturned {
 		this.expirationDate = expirationDate;
 		this.createdDate = createdDate;
 		this.active = active;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public Long getId() {
@@ -88,12 +88,12 @@ public class VoucherDTOReturned {
 		this.active = active;
 	}
 
-	public List<CaptureItemDTOReturned> getCaptureItemList() {
-		return captureItemList;
+	public List<CaptureItemDTOReturned> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<CaptureItemDTOReturned> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<CaptureItemDTOReturned> captureItems) {
+		this.captureItems = captureItems;
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class VoucherDTOReturned {
 		if (!Objects.equals(expirationDate, that.expirationDate))
 			return false;
 		if (!Objects.equals(createdDate, that.createdDate)) return false;
-		return Objects.equals(captureItemList, that.captureItemList);
+		return Objects.equals(captureItems, that.captureItems);
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class VoucherDTOReturned {
 		result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
 		result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
 		result = 31 * result + (active ? 1 : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
+		result = 31 * result + (captureItems != null ? captureItems.hashCode() : 0);
 		return result;
 	}
 
@@ -137,7 +137,7 @@ public class VoucherDTOReturned {
 				", expirationDate=" + expirationDate +
 				", createdDate=" + createdDate +
 				", active=" + active +
-				", captureItemList=" + captureItemList +
+				", captureItems=" + captureItems +
 				'}';
 	}
 
@@ -150,7 +150,7 @@ public class VoucherDTOReturned {
 		private LocalDateTime expirationDate;
 		private LocalDateTime createdDate;
 		private boolean active;
-		private List<CaptureItemDTOReturned> captureItemList;
+		private List<CaptureItemDTOReturned> captureItems;
 
 		public VoucherDTOReturnedBuilder() {
 		}
@@ -183,12 +183,12 @@ public class VoucherDTOReturned {
 			this.active = active;
 			return this;
 		}
-		public VoucherDTOReturnedBuilder captureItemList(final List<CaptureItemDTOReturned> captureItemList) {
-			this.captureItemList = captureItemList;
+		public VoucherDTOReturnedBuilder captureItems(final List<CaptureItemDTOReturned> captureItems) {
+			this.captureItems = captureItems;
 			return this;
 		}
 
-		public VoucherDTOReturned build() {return new VoucherDTOReturned(this.id, this.voucherCode, this.amount, this.balance, this.expirationDate, this.createdDate, this.active, this.captureItemList);}
+		public VoucherDTOReturned build() {return new VoucherDTOReturned(this.id, this.voucherCode, this.amount, this.balance, this.expirationDate, this.createdDate, this.active, this.captureItems);}
 
 	}
 }

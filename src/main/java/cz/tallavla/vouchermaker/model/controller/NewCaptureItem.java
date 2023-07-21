@@ -1,16 +1,17 @@
 package cz.tallavla.vouchermaker.model.controller;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class NewCaptureItem {
 
 	private String voucherCode;
 
-	private String captureAmount;
+	private BigDecimal captureAmount;
 
 	public static NewCaptureItemBuilder builder() {return new NewCaptureItemBuilder();}
 
-	public NewCaptureItem(String voucherCode, String captureAmount) {
+	public NewCaptureItem(String voucherCode, BigDecimal captureAmount) {
 		this.voucherCode = voucherCode;
 		this.captureAmount = captureAmount;
 	}
@@ -26,11 +27,11 @@ public class NewCaptureItem {
 		this.voucherCode = voucherCode;
 	}
 
-	public String getCaptureAmount() {
+	public BigDecimal getCaptureAmount() {
 		return captureAmount;
 	}
 
-	public void setCaptureAmount(String captureAmount) {
+	public void setCaptureAmount(BigDecimal captureAmount) {
 		this.captureAmount = captureAmount;
 	}
 
@@ -62,7 +63,7 @@ public class NewCaptureItem {
 
 	public static class NewCaptureItemBuilder {
 		private String voucherCode;
-		private String captureAmount;
+		private BigDecimal captureAmount;
 
 		NewCaptureItemBuilder() {
 		}
@@ -72,7 +73,7 @@ public class NewCaptureItem {
 			return this;
 		}
 
-		public NewCaptureItemBuilder captureAmount(final String captureAmount) {
+		public NewCaptureItemBuilder captureAmount(final BigDecimal captureAmount) {
 			this.captureAmount = captureAmount;
 			return this;
 		}

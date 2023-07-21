@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -24,9 +26,7 @@ public class MappersUnitTest {
 	public void getJsonString() {
 
 		String expectedJson = "{\"amount\":\"1000\"}";
-		NewVoucher source = NewVoucher.builder()
-				.amount("1000")
-				.build();
+		NewVoucher source = new NewVoucher(new BigDecimal("1000"));
 
 		var actual =  mappers.getJsonString(source);
 

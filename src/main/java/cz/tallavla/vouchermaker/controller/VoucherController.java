@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -28,25 +29,14 @@ import static cz.tallavla.vouchermaker.utils.Constants.DEACTIVATE;
 public class VoucherController {
 
 	@Autowired
-	private Mappers mappers;
-
-	@Autowired
 	private VoucherService voucherService;
 
 	private final ModelMapper modelMapper = new ModelMapper();
 
 	@PostMapping("/new")
-	public ResponseEntity<ReturnVoucher> createVoucher(@RequestBody NewVoucher newVoucher) {
+	public ResponseEntity<ReturnVoucher> createVoucher(@RequestBody @Validated NewVoucher newVoucher) {
 
-		BigDecimal amount;
-
-		try {
-			amount = new BigDecimal(String.valueOf(newVoucher.getAmount()));
-			log.info("New voucher amount: {}", amount);
-			return new ResponseEntity<>(modelMapper.map(voucherService.createVoucher(amount), ReturnVoucher.class), HttpStatus.CREATED);
-		} catch (NumberFormatException ex) {
-			throw new WrongFormatException("Wrong format of amount.");
-		}
+			return new ResponseEntity<>(modelMapper.map(voucherService.createVoucher(newVoucher.getAmount()), ReturnVoucher.class), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{code}")
@@ -80,15 +70,9 @@ public class VoucherController {
 	}
 
 	@GetMapping("/capture/{id}")
-	public ResponseEntity<ReturnCapture> getCapture(@PathVariable(value = "id") String id) {
-		long captureId;
-		try {
-			captureId = Long.parseLong(id);
-		} catch (NumberFormatException ex) {
-			throw new WrongFormatException("Capture id not parsable to number.");
-		}
+	public ResponseEntity<ReturnCapture> getCapture(@PathVariable(value = "id") Long id) {
 
-		return new ResponseEntity<>(modelMapper.map(voucherService.getCapture(captureId), ReturnCapture.class), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(modelMapper.map(voucherService.getCapture(id), ReturnCapture.class), HttpStatus.ACCEPTED);
 	}
 
 	private CaptureDTO mapCapture(NewCapture newCapture) {
@@ -102,13 +86,9 @@ public class VoucherController {
 		for (NewCaptureItem captureItem : newCapture.getCaptureItems()
 		) {
 			CaptureItemDTO captureItemDTO = new CaptureItemDTO();
-			BigDecimal captureAmount;
-			try {
-				captureAmount = new BigDecimal(String.valueOf(captureItem.getCaptureAmount()));
-				captureItemDTO.setCaptureAmount(captureAmount);
-			} catch (NumberFormatException ex) {
-				throw new WrongFormatException("Wrong format of amount.");  //TODO: decline all capture, possible only decline wrong captureItem, not all capture
-			}
+
+			captureItemDTO.setCaptureAmount(captureItem.getCaptureAmount());
+
 
 			if (testVoucherCodeForNull(captureItem.getVoucherCode())) {
 				captureItemDTO.setVoucherCode(captureItem.getVoucherCode());

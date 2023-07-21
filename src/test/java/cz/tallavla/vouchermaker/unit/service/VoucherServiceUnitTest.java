@@ -181,7 +181,7 @@ public class VoucherServiceUnitTest {
 
 		CaptureDTOReturned savedCapture = readJsonFileToClassObject("/payloads/CaptureDTOReturned.json", CaptureDTOReturned.class);
 
-		ArrayList<CaptureItemDTOReturned> captureItemListSaved = new ArrayList<>(List.of(
+		ArrayList<CaptureItemDTOReturned> captureItemsSaved = new ArrayList<>(List.of(
 				CaptureItemDTOReturned.builder()
 					.id(30001L)
 					.voucherCode("TE1B-6P8R-7P8B-6L1Z-1G5B-6G1U-5G3R-NO")
@@ -204,7 +204,7 @@ public class VoucherServiceUnitTest {
 
 		when(captureDAOServiceMock.saveCapture(any())).thenReturn(savedCapture);
 		when(voucherDAOServiceMock.findVoucherByVoucherCode(anyString())).thenReturn(response);
-		when(captureItemDAOServiceMock.saveAllCaptureItems(any())).thenReturn(captureItemListSaved);
+		when(captureItemDAOServiceMock.saveAllCaptureItems(any())).thenReturn(captureItemsSaved);
 
 		doNothing().when(voucherDAOServiceMock).saveAllVouchers(any());
 

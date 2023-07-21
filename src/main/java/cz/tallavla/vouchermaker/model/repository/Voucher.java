@@ -39,14 +39,14 @@ public class Voucher {
 	private boolean active;
 
 	@OneToMany(mappedBy = "voucher")
-	private List<CaptureItem> captureItemList;
+	private List<CaptureItem> captureItems;
 
 	public static VoucherBuilder builder() {
 		return new VoucherBuilder();
 	}
 
 	public VoucherBuilder toBuilder() {
-		return (new VoucherBuilder()).id(this.id).voucherCode(this.voucherCode).amount(this.amount).balance(this.balance).createdDate(this.createdDate).lastUpdatedDate(this.lastUpdatedDate).expirationDate(this.expirationDate).active(this.active).captureItemList(this.captureItemList);
+		return (new VoucherBuilder()).id(this.id).voucherCode(this.voucherCode).amount(this.amount).balance(this.balance).createdDate(this.createdDate).lastUpdatedDate(this.lastUpdatedDate).expirationDate(this.expirationDate).active(this.active).captureItems(this.captureItems);
 	}
 
 	@Override
@@ -60,11 +60,11 @@ public class Voucher {
 				", lastUpdatedDate=" + lastUpdatedDate +
 				", expirationDate=" + expirationDate +
 				", active=" + active +
-				", captureItemList=" + captureItemList +
+				", captureItems=" + captureItems +
 				'}';
 	}
 
-	public Voucher(Long id, String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, LocalDateTime expirationDate, boolean active, List<CaptureItem> captureItemList) {
+	public Voucher(Long id, String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, LocalDateTime expirationDate, boolean active, List<CaptureItem> captureItems) {
 		this.id = id;
 		this.voucherCode = voucherCode;
 		this.amount = amount;
@@ -73,7 +73,7 @@ public class Voucher {
 		this.lastUpdatedDate = lastUpdatedDate;
 		this.expirationDate = expirationDate;
 		this.active = active;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public Voucher() {
@@ -143,12 +143,12 @@ public class Voucher {
 		this.active = active;
 	}
 
-	public List<CaptureItem> getCaptureItemList() {
-		return captureItemList;
+	public List<CaptureItem> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<CaptureItem> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<CaptureItem> captureItems) {
+		this.captureItems = captureItems;
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class Voucher {
 			return false;
 		if (!Objects.equals(expirationDate, voucher.expirationDate))
 			return false;
-		return Objects.equals(captureItemList, voucher.captureItemList);
+		return Objects.equals(captureItems, voucher.captureItems);
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class Voucher {
 		result = 31 * result + (lastUpdatedDate != null ? lastUpdatedDate.hashCode() : 0);
 		result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
 		result = 31 * result + (active ? 1 : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
+		result = 31 * result + (captureItems != null ? captureItems.hashCode() : 0);
 		return result;
 	}
 	public static class VoucherBuilder {
@@ -193,7 +193,7 @@ public class Voucher {
 		private LocalDateTime lastUpdatedDate;
 		private LocalDateTime expirationDate;
 		private boolean active;
-		private List<CaptureItem> captureItemList;
+		private List<CaptureItem> captureItems;
 		VoucherBuilder() {
 		}
 
@@ -237,17 +237,17 @@ public class Voucher {
 			return this;
 		}
 
-		public VoucherBuilder captureItemList(final List<CaptureItem> captureItemList) {
-			this.captureItemList = captureItemList;
+		public VoucherBuilder captureItems(final List<CaptureItem> captureItems) {
+			this.captureItems = captureItems;
 			return this;
 		}
 
 		public Voucher build() {
-			return new Voucher(this.id, this.voucherCode, this.amount, this.balance, this.createdDate, this.lastUpdatedDate, this.expirationDate, this.active, this.captureItemList);
+			return new Voucher(this.id, this.voucherCode, this.amount, this.balance, this.createdDate, this.lastUpdatedDate, this.expirationDate, this.active, this.captureItems);
 		}
 
 		public String toString() {
-			return "Voucher.VoucherBuilder(id=" + this.id + ", voucherCode=" + this.voucherCode + ", amount=" + this.amount + ", balance=" + this.balance + ", createdDate=" + this.createdDate + ", lastUpdatedDate=" + this.lastUpdatedDate + ", expirationDate=" + this.expirationDate + ", active=" + this.active + ", captureItemList=" + this.captureItemList +  ")";
+			return "Voucher.VoucherBuilder(id=" + this.id + ", voucherCode=" + this.voucherCode + ", amount=" + this.amount + ", balance=" + this.balance + ", createdDate=" + this.createdDate + ", lastUpdatedDate=" + this.lastUpdatedDate + ", expirationDate=" + this.expirationDate + ", active=" + this.active + ", captureItems=" + this.captureItems +  ")";
 		}
 	}
 }

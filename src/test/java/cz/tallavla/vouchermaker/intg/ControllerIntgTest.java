@@ -75,7 +75,7 @@
 //				.active(true)
 //				.voucherCode(voucherCode)
 //				.expirationDate(expDate)
-//				.captureItemList(null)
+//				.captureItems(null)
 //				.build();
 //
 //		Voucher returnedVoucher = voucherRepository.save(voucher);
@@ -93,11 +93,11 @@
 //				.reason("Not Processed.")
 //				.numberOfItems(1)
 //				.processed(false)
-//				.captureItemList(new ArrayList<>(List.of(returnedCaptureItem)))
+//				.captureItems(new ArrayList<>(List.of(returnedCaptureItem)))
 //				.build();
 //
 //		captureRepository.save(capture);
-//		returnedVoucher.setCaptureItemList(new ArrayList<>(List.of(returnedCaptureItem)));
+//		returnedVoucher.setCaptureItems(new ArrayList<>(List.of(returnedCaptureItem)));
 //		voucherRepository.save(returnedVoucher);
 //	}
 //
@@ -174,7 +174,7 @@
 //		var voucherCode = "TE1B-6P8R-7P8B-6L1Z-1G5B-6G1U-5G3R-NO1";
 //
 //		NewCapture newCapture = NewCapture.builder()
-//				.captureItemList(new ArrayList<>(List.of(NewCaptureItem.builder()
+//				.captureItems(new ArrayList<>(List.of(NewCaptureItem.builder()
 //						.voucherCode(voucherCode)
 //						.captureAmount("150")
 //						.build()

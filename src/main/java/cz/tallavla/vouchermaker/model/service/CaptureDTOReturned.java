@@ -16,7 +16,7 @@ public class CaptureDTOReturned {
 
 	private String reason;
 
-	private List<CaptureItemDTOReturned> captureItemList;
+	private List<CaptureItemDTOReturned> captureItems;
 
 	public static CaptureDTOReturnedBuilder builder() {
 		return new CaptureDTOReturnedBuilder();
@@ -25,13 +25,13 @@ public class CaptureDTOReturned {
 	public CaptureDTOReturned() {
 	}
 
-	public CaptureDTOReturned(Long id, LocalDateTime createdDate, int numberOfItems, boolean processed, String reason, List<CaptureItemDTOReturned> captureItemList) {
+	public CaptureDTOReturned(Long id, LocalDateTime createdDate, int numberOfItems, boolean processed, String reason, List<CaptureItemDTOReturned> captureItems) {
 		this.id = id;
 		this.createdDate = createdDate;
 		this.numberOfItems = numberOfItems;
 		this.processed = processed;
 		this.reason = reason;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public Long getId() {
@@ -74,12 +74,12 @@ public class CaptureDTOReturned {
 		this.reason = reason;
 	}
 
-	public List<CaptureItemDTOReturned> getCaptureItemList() {
-		return captureItemList;
+	public List<CaptureItemDTOReturned> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<CaptureItemDTOReturned> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<CaptureItemDTOReturned> captureItems) {
+		this.captureItems = captureItems;
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class CaptureDTOReturned {
 		if (!Objects.equals(id, that.id)) return false;
 		if (!Objects.equals(createdDate, that.createdDate)) return false;
 		if (!Objects.equals(reason, that.reason)) return false;
-		return Objects.equals(captureItemList, that.captureItemList);
+		return Objects.equals(captureItems, that.captureItems);
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class CaptureDTOReturned {
 		result = 31 * result + numberOfItems;
 		result = 31 * result + (processed ? 1 : 0);
 		result = 31 * result + (reason != null ? reason.hashCode() : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
+		result = 31 * result + (captureItems != null ? captureItems.hashCode() : 0);
 		return result;
 	}
 	public static class CaptureDTOReturnedBuilder {
@@ -113,7 +113,7 @@ public class CaptureDTOReturned {
 		private int numberOfItems;
 		private boolean processed;
 		private String reason;
-		private List<CaptureItemDTOReturned> captureItemList;
+		private List<CaptureItemDTOReturned> captureItems;
 
 		CaptureDTOReturnedBuilder() {
 		}
@@ -143,17 +143,17 @@ public class CaptureDTOReturned {
 			return this;
 		}
 
-		public CaptureDTOReturnedBuilder captureItemList(final List<CaptureItemDTOReturned> captureItemList) {
-			this.captureItemList = captureItemList;
+		public CaptureDTOReturnedBuilder captureItems(final List<CaptureItemDTOReturned> captureItems) {
+			this.captureItems = captureItems;
 			return this;
 		}
 
 		public CaptureDTOReturned build() {
-			return new CaptureDTOReturned(this.id, this.createdDate, this.numberOfItems, this.processed, this.reason, this.captureItemList);
+			return new CaptureDTOReturned(this.id, this.createdDate, this.numberOfItems, this.processed, this.reason, this.captureItems);
 		}
 
 		public String toString() {
-			return "CaptureDTOReturned.CaptureDTOReturnedBuilder(id=" + this.id + ", createdDate=" + this.createdDate + ", numberOfItems=" + this.numberOfItems + ", processed=" + this.processed + ", reason=" + this.reason + ", captureItemList=" + this.captureItemList + ")";
+			return "CaptureDTOReturned.CaptureDTOReturnedBuilder(id=" + this.id + ", createdDate=" + this.createdDate + ", numberOfItems=" + this.numberOfItems + ", processed=" + this.processed + ", reason=" + this.reason + ", captureItems=" + this.captureItems + ")";
 		}
 	}
 

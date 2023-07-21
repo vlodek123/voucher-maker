@@ -92,7 +92,7 @@
 //
 //		VoucherDTOReturned response = readJsonFileToClassObject("/payloads/VoucherDTOReturned.json", VoucherDTOReturned.class);
 //		assert response != null;
-//		response.setCaptureItemList(new ArrayList<>());
+//		response.setCaptureItems(new ArrayList<>());
 //
 //		when(voucherServiceMOck.createVoucher(any())).thenReturn(response);
 //
@@ -205,7 +205,7 @@
 //		MvcResult result = mvc.perform(get(VOUCHER_URL + "/capture/{id}", id))
 //				.andExpect(status().isAccepted())
 //				.andExpect(jsonPath("$.id", is(20001)))
-//				.andExpect(jsonPath("$.captureItemList.size()", is(capture.getCaptureItemList().size())))
+//				.andExpect(jsonPath("$.captureItems.size()", is(capture.getCaptureItems().size())))
 //				.andReturn();
 //	}
 //

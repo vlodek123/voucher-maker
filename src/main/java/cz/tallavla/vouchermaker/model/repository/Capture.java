@@ -28,7 +28,7 @@ public class Capture {
 	private String reason;
 
 	@OneToMany(mappedBy = "capture")
-	private List<CaptureItem> captureItemList;
+	private List<CaptureItem> captureItems;
 
 	@Override
 	public String toString() {
@@ -38,17 +38,17 @@ public class Capture {
 				", numberOfItems=" + numberOfItems +
 				", processed=" + processed +
 				", reason='" + reason + '\'' +
-				", captureItemList=" + captureItemList +
+				", captureItems=" + captureItems +
 				'}';
 	}
 
-	public Capture(Long id, LocalDateTime createdDate, int numberOfItems, boolean processed, String reason, List<CaptureItem> captureItemList) {
+	public Capture(Long id, LocalDateTime createdDate, int numberOfItems, boolean processed, String reason, List<CaptureItem> captureItems) {
 		this.id = id;
 		this.createdDate = createdDate;
 		this.numberOfItems = numberOfItems;
 		this.processed = processed;
 		this.reason = reason;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public Capture() {
@@ -94,12 +94,12 @@ public class Capture {
 		this.reason = reason;
 	}
 
-	public List<CaptureItem> getCaptureItemList() {
-		return captureItemList;
+	public List<CaptureItem> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<CaptureItem> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<CaptureItem> captureItems) {
+		this.captureItems = captureItems;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class Capture {
 		if (!Objects.equals(id, capture.id)) return false;
 		if (!Objects.equals(createdDate, capture.createdDate)) return false;
 		if (!Objects.equals(reason, capture.reason)) return false;
-		return Objects.equals(captureItemList, capture.captureItemList);
+		return Objects.equals(captureItems, capture.captureItems);
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class Capture {
 		result = 31 * result + numberOfItems;
 		result = 31 * result + (processed ? 1 : 0);
 		result = 31 * result + (reason != null ? reason.hashCode() : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
+		result = 31 * result + (captureItems != null ? captureItems.hashCode() : 0);
 		return result;
 	}
 }

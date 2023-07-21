@@ -24,10 +24,10 @@ public class CaptureItemDAOServiceImpl implements CaptureItemDAOService {
 
 
 	@Override
-	public ArrayList<CaptureItemDTOReturned> saveAllCaptureItems(ArrayList<CaptureItemDTOReturned> captureItemListForSave) {
+	public ArrayList<CaptureItemDTOReturned> saveAllCaptureItems(ArrayList<CaptureItemDTOReturned> captureItemsForSave) {
 		ArrayList<CaptureItem> captureItems = new ArrayList<>();
 
-		for (CaptureItemDTOReturned item: captureItemListForSave
+		for (CaptureItemDTOReturned item: captureItemsForSave
 			 ) {
 			captureItems.add(modelMapper.map(item, CaptureItem.class));
 		}

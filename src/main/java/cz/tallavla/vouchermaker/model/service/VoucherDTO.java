@@ -12,17 +12,17 @@ public class VoucherDTO {
 	private BigDecimal balance;
 	private LocalDateTime expirationDate;
 	private boolean active;
-	private List<CaptureItemDTO> captureItemList;
+	private List<CaptureItemDTO> captureItems;
 
 	public static VoucherDTOBuilder builder() {return new VoucherDTOBuilder();}
 
-	public VoucherDTO(String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime expirationDate, boolean active, List<CaptureItemDTO> captureItemList) {
+	public VoucherDTO(String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime expirationDate, boolean active, List<CaptureItemDTO> captureItems) {
 		this.voucherCode = voucherCode;
 		this.amount = amount;
 		this.balance = balance;
 		this.expirationDate = expirationDate;
 		this.active = active;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public VoucherDTO() {
@@ -68,12 +68,12 @@ public class VoucherDTO {
 		this.active = active;
 	}
 
-	public List<CaptureItemDTO> getCaptureItemList() {
-		return captureItemList;
+	public List<CaptureItemDTO> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<CaptureItemDTO> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<CaptureItemDTO> captureItems) {
+		this.captureItems = captureItems;
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class VoucherDTO {
 		if (!Objects.equals(balance, that.balance)) return false;
 		if (!Objects.equals(expirationDate, that.expirationDate))
 			return false;
-		return Objects.equals(captureItemList, that.captureItemList);
+		return Objects.equals(captureItems, that.captureItems);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class VoucherDTO {
 		result = 31 * result + (balance != null ? balance.hashCode() : 0);
 		result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
 		result = 31 * result + (active ? 1 : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
+		result = 31 * result + (captureItems != null ? captureItems.hashCode() : 0);
 		return result;
 	}
 
@@ -111,7 +111,7 @@ public class VoucherDTO {
 				", balance=" + balance +
 				", expirationDate=" + expirationDate +
 				", active=" + active +
-				", captureItemList=" + captureItemList +
+				", captureItems=" + captureItems +
 				'}';
 	}
 
@@ -121,7 +121,7 @@ public class VoucherDTO {
 		private BigDecimal balance;
 		private LocalDateTime expirationDate;
 		private boolean active;
-		private List<CaptureItemDTO> captureItemList;
+		private List<CaptureItemDTO> captureItems;
 
 		public VoucherDTOBuilder() {
 		}
@@ -145,11 +145,11 @@ public class VoucherDTO {
 			this.active = active;
 			return this;
 		}
-		public VoucherDTOBuilder captureItemList(final List<CaptureItemDTO> captureItemList) {
-			this.captureItemList = captureItemList;
+		public VoucherDTOBuilder captureItems(final List<CaptureItemDTO> captureItems) {
+			this.captureItems = captureItems;
 			return this;
 		}
 
-		public VoucherDTO build() {return new VoucherDTO(this.voucherCode, this.amount, this.balance, this.expirationDate, this.active, this.captureItemList);}
+		public VoucherDTO build() {return new VoucherDTO(this.voucherCode, this.amount, this.balance, this.expirationDate, this.active, this.captureItems);}
 	}
 }

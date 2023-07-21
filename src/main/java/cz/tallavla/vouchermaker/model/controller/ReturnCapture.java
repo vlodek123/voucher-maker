@@ -18,19 +18,19 @@ public class ReturnCapture {
 
 	private String reason;
 
-	private List<ReturnCaptureItem> captureItemList;
+	private List<ReturnCaptureItem> captureItems;
 
 	public static ReturnCaptureBuilder builder() {
 		return new ReturnCaptureBuilder();
 	}
 
-	public ReturnCapture(Long id, LocalDateTime createdDate, int numberOfItems, boolean processed, String reason, List<ReturnCaptureItem> captureItemList) {
+	public ReturnCapture(Long id, LocalDateTime createdDate, int numberOfItems, boolean processed, String reason, List<ReturnCaptureItem> captureItems) {
 		this.id = id;
 		this.createdDate = createdDate;
 		this.numberOfItems = numberOfItems;
 		this.processed = processed;
 		this.reason = reason;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public ReturnCapture() {
@@ -76,12 +76,12 @@ public class ReturnCapture {
 		this.reason = reason;
 	}
 
-	public List<ReturnCaptureItem> getCaptureItemList() {
-		return captureItemList;
+	public List<ReturnCaptureItem> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<ReturnCaptureItem> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<ReturnCaptureItem> captureItems) {
+		this.captureItems = captureItems;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class ReturnCapture {
 		if (!Objects.equals(id, that.id)) return false;
 		if (!Objects.equals(createdDate, that.createdDate)) return false;
 		if (!Objects.equals(reason, that.reason)) return false;
-		return Objects.equals(captureItemList, that.captureItemList);
+		return Objects.equals(captureItems, that.captureItems);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class ReturnCapture {
 		result = 31 * result + numberOfItems;
 		result = 31 * result + (processed ? 1 : 0);
 		result = 31 * result + (reason != null ? reason.hashCode() : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
+		result = 31 * result + (captureItems != null ? captureItems.hashCode() : 0);
 		return result;
 	}
 
@@ -118,7 +118,7 @@ public class ReturnCapture {
 				", numberOfItems=" + numberOfItems +
 				", processed=" + processed +
 				", reason='" + reason + '\'' +
-				", captureItemList=" + captureItemList +
+				", captureItems=" + captureItems +
 				'}';
 	}
 
@@ -128,7 +128,7 @@ public class ReturnCapture {
 		private int numberOfItems;
 		private boolean processed;
 		private String reason;
-		private List<ReturnCaptureItem> captureItemList;
+		private List<ReturnCaptureItem> captureItems;
 
 		ReturnCaptureBuilder() {
 		}
@@ -158,17 +158,17 @@ public class ReturnCapture {
 			return this;
 		}
 
-		public ReturnCaptureBuilder captureItemList(final List<ReturnCaptureItem> captureItemList) {
-			this.captureItemList = captureItemList;
+		public ReturnCaptureBuilder captureItems(final List<ReturnCaptureItem> captureItems) {
+			this.captureItems = captureItems;
 			return this;
 		}
 
 		public ReturnCapture build() {
-			return new ReturnCapture(this.id, this.createdDate, this.numberOfItems, this.processed, this.reason, this.captureItemList);
+			return new ReturnCapture(this.id, this.createdDate, this.numberOfItems, this.processed, this.reason, this.captureItems);
 		}
 
 		public String toString() {
-			return "ReturnCapture.ReturnCaptureBuilder(id=" + this.id + ", createdDate=" + this.createdDate + ", numberOfItems=" + this.numberOfItems + ", processed=" + this.processed + ", reason=" + this.reason + ", captureItemList=" + this.captureItemList + ")";
+			return "ReturnCapture.ReturnCaptureBuilder(id=" + this.id + ", createdDate=" + this.createdDate + ", numberOfItems=" + this.numberOfItems + ", processed=" + this.processed + ", reason=" + this.reason + ", captureItems=" + this.captureItems + ")";
 		}
 	}
 }

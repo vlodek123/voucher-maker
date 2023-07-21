@@ -61,7 +61,7 @@ public class VoucherServiceImpl implements VoucherService {
 				.balance(amount)
 				.expirationDate(expirationDate)
 				.active(true)
-				.captureItemList(null)
+				.captureItems(null)
 				.build();
 
 
@@ -131,14 +131,14 @@ public class VoucherServiceImpl implements VoucherService {
 		log.info("captureId: {}", captureId);
 
 		// mapping and saving captureItems
-		ArrayList<CaptureItemDTOReturned> captureItemListForSave = mapCaptureItemList(captureDTO, savedCapture);
+		ArrayList<CaptureItemDTOReturned> captureItemsForSave = mapCaptureItems(captureDTO, savedCapture);
 
-		ArrayList<CaptureItemDTOReturned> captureItemListSaved = new ArrayList<>(captureItemDAOService.saveAllCaptureItems(captureItemListForSave));
+		ArrayList<CaptureItemDTOReturned> captureItemsSaved = new ArrayList<>(captureItemDAOService.saveAllCaptureItems(captureItemsForSave));
 
 		// in cycle get all vouchers in capture
 		ArrayList<VoucherDTOReturned> listOfSavedVoucherToProcess = new ArrayList<>();
 
-		for (CaptureItemDTOReturned item : captureItemListSaved
+		for (CaptureItemDTOReturned item : captureItemsSaved
 		) {
 			// test if voucher was already processed and change it again
 			var voucherMaybeNull = compareVouchers(listOfSavedVoucherToProcess, item.getVoucherCode());
@@ -156,7 +156,7 @@ public class VoucherServiceImpl implements VoucherService {
 			if (voucherFound.isEmpty()) {
 				savedCapture.setReason("Voucher not found.");
 				captureDAOService.saveCapture(savedCapture);
-				captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemListSaved, false));
+				captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemsSaved, false));
 				log.info("Voucher not found. Capture not processed.");
 				throw new CaptureException("Voucher not found. Capture " + captureId + " not processed.");
 			} else {
@@ -172,7 +172,7 @@ public class VoucherServiceImpl implements VoucherService {
 				if (newBalance.compareTo(new BigDecimal(0)) < 0) {
 					savedCapture.setReason("Not enough funds.");
 					captureDAOService.saveCapture(savedCapture);
-					captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemListSaved, false));
+					captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemsSaved, false));
 					log.info("Not enough funds. Capture not processed.");
 					listOfSavedVoucherToProcess.clear();
 					throw new CaptureException("Not enough funds. Capture " + captureId + " not processed.");
@@ -203,16 +203,16 @@ public class VoucherServiceImpl implements VoucherService {
 
 		captureDAOService.saveCapture(savedCapture);
 
-		joinCaptureItemsWithVouchers(listOfSavedVoucherToProcess, captureItemListSaved);
+		joinCaptureItemsWithVouchers(listOfSavedVoucherToProcess, captureItemsSaved);
 
-		captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemListSaved, true));
+		captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemsSaved, true));
 
 		return InformationResponse.builder().info("Capture processed, capture ID:").id(savedCapture.getId().toString()).build();
 	}
 
-	private void joinCaptureItemsWithVouchers(ArrayList<VoucherDTOReturned> listOfSavedVoucherToProcess, ArrayList<CaptureItemDTOReturned> captureItemListSaved) {
+	private void joinCaptureItemsWithVouchers(ArrayList<VoucherDTOReturned> listOfSavedVoucherToProcess, ArrayList<CaptureItemDTOReturned> captureItemsSaved) {
 
-		for (CaptureItemDTOReturned item : captureItemListSaved
+		for (CaptureItemDTOReturned item : captureItemsSaved
 		) {
 			item.setVoucher(listOfSavedVoucherToProcess.stream()
 					.filter(obj -> obj.getVoucherCode().equals(item.getVoucherCode()))
@@ -246,17 +246,17 @@ public class VoucherServiceImpl implements VoucherService {
 		return null;
 	}
 
-	private ArrayList<CaptureItemDTOReturned> setProcessedFlag(ArrayList<CaptureItemDTOReturned> captureItemListSaved, boolean flag) {
+	private ArrayList<CaptureItemDTOReturned> setProcessedFlag(ArrayList<CaptureItemDTOReturned> captureItemsSaved, boolean flag) {
 
-		for (CaptureItemDTOReturned item : captureItemListSaved
+		for (CaptureItemDTOReturned item : captureItemsSaved
 		) {
 			item.setProcessed(flag);
 		}
-		return captureItemListSaved;
+		return captureItemsSaved;
 	}
 
-	private ArrayList<CaptureItemDTOReturned> mapCaptureItemList(CaptureDTO captureDTO, CaptureDTOReturned savedCapture) {
-		ArrayList<CaptureItemDTOReturned> captureItemList = new ArrayList<>();
+	private ArrayList<CaptureItemDTOReturned> mapCaptureItems(CaptureDTO captureDTO, CaptureDTOReturned savedCapture) {
+		ArrayList<CaptureItemDTOReturned> captureItems = new ArrayList<>();
 		for (CaptureItemDTO item : captureDTO.getCaptureItemDTOS()
 		) {
 			CaptureItemDTOReturned captureItem = CaptureItemDTOReturned.builder()
@@ -266,10 +266,10 @@ public class VoucherServiceImpl implements VoucherService {
 					.processed(false)
 					.voucher(null)
 					.build();
-			captureItemList.add(captureItem);
+			captureItems.add(captureItem);
 		}
 
-		return captureItemList;
+		return captureItems;
 	}
 
 	private boolean isActionPossible(String action, boolean active) {

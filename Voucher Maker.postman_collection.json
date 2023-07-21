@@ -135,7 +135,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"captureItemList\": [\r\n        {\r\n            \"voucherCode\": \"TE1S-6E8C-8Y1F-1A0X-9U2F-0J4D-4N1L-NO\",\r\n            \"captureAmount\": \"100\"\r\n        },\r\n        {\r\n            \"voucherCode\": \"TE1F-6U8A-8F1W-1R1B-0X9R-1Y7O-9D4C-NO\",\r\n            \"captureAmount\": \"150\"\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"captureItems\": [\r\n        {\r\n            \"voucherCode\": \"TE1S-6E8C-8Y1F-1A0X-9U2F-0J4D-4N1L-NO\",\r\n            \"captureAmount\": \"100\"\r\n        },\r\n        {\r\n            \"voucherCode\": \"TE1F-6U8A-8F1W-1R1B-0X9R-1Y7O-9D4C-NO\",\r\n            \"captureAmount\": \"150\"\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

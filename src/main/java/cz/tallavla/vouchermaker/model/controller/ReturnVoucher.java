@@ -3,41 +3,29 @@ package cz.tallavla.vouchermaker.model.controller;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 public class ReturnVoucher {
-
-	private Long id;
 	private String voucherCode;
 	private BigDecimal amount;
 	private BigDecimal balance;
 	private LocalDateTime expirationDate;
 	private boolean active;
-	private List<ReturnCaptureItem> captureItemList;
+	private List<ReturnCaptureItem> captureItems;
 
 	public static ReturnVoucherBuilder builder() {
 		return new ReturnVoucherBuilder();
 	}
 
-	public ReturnVoucher(Long id, String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime expirationDate, boolean active, List<ReturnCaptureItem> captureItemList) {
-		this.id = id;
+	public ReturnVoucher(String voucherCode, BigDecimal amount, BigDecimal balance, LocalDateTime expirationDate, boolean active, List<ReturnCaptureItem> captureItems) {
 		this.voucherCode = voucherCode;
 		this.amount = amount;
 		this.balance = balance;
 		this.expirationDate = expirationDate;
 		this.active = active;
-		this.captureItemList = captureItemList;
+		this.captureItems = captureItems;
 	}
 
 	public ReturnVoucher() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getVoucherCode() {
@@ -80,71 +68,36 @@ public class ReturnVoucher {
 		this.active = active;
 	}
 
-	public List<ReturnCaptureItem> getCaptureItemList() {
-		return captureItemList;
+	public List<ReturnCaptureItem> getCaptureItems() {
+		return captureItems;
 	}
 
-	public void setCaptureItemList(List<ReturnCaptureItem> captureItemList) {
-		this.captureItemList = captureItemList;
+	public void setCaptureItems(List<ReturnCaptureItem> captureItems) {
+		this.captureItems = captureItems;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		ReturnVoucher that = (ReturnVoucher) o;
-
-		if (active != that.active) return false;
-		if (!Objects.equals(id, that.id)) return false;
-		if (!Objects.equals(voucherCode, that.voucherCode)) return false;
-		if (!Objects.equals(amount, that.amount)) return false;
-		if (!Objects.equals(balance, that.balance)) return false;
-		if (!Objects.equals(expirationDate, that.expirationDate))
-			return false;
-		return Objects.equals(captureItemList, that.captureItemList);
-	}
-
-	@Override
-	public int hashCode() {
-		int result = id != null ? id.hashCode() : 0;
-		result = 31 * result + (voucherCode != null ? voucherCode.hashCode() : 0);
-		result = 31 * result + (amount != null ? amount.hashCode() : 0);
-		result = 31 * result + (balance != null ? balance.hashCode() : 0);
-		result = 31 * result + (expirationDate != null ? expirationDate.hashCode() : 0);
-		result = 31 * result + (active ? 1 : 0);
-		result = 31 * result + (captureItemList != null ? captureItemList.hashCode() : 0);
-		return result;
-	}
 
 	@Override
 	public String toString() {
 		return "ReturnVoucher{" +
-				"id=" + id +
-				", voucherCode='" + voucherCode + '\'' +
+				"voucherCode='" + voucherCode + '\'' +
 				", amount=" + amount +
 				", balance=" + balance +
 				", expirationDate=" + expirationDate +
 				", active=" + active +
-				", captureItemList=" + captureItemList +
+				", captureItems=" + captureItems +
 				'}';
 	}
 
 	public static class ReturnVoucherBuilder {
-		private Long id;
 		private String voucherCode;
 		private BigDecimal amount;
 		private BigDecimal balance;
 		private LocalDateTime expirationDate;
 		private boolean active;
-		private List<ReturnCaptureItem> captureItemList;
+		private List<ReturnCaptureItem> captureItems;
 
 		ReturnVoucherBuilder() {
-		}
-
-		public ReturnVoucherBuilder id(final Long id) {
-			this.id = id;
-			return this;
 		}
 
 		public ReturnVoucherBuilder voucherCode(final String voucherCode) {
@@ -172,17 +125,17 @@ public class ReturnVoucher {
 			return this;
 		}
 
-		public ReturnVoucherBuilder captureItemList(final List<ReturnCaptureItem> captureItemList) {
-			this.captureItemList = captureItemList;
+		public ReturnVoucherBuilder captureItems(final List<ReturnCaptureItem> captureItems) {
+			this.captureItems = captureItems;
 			return this;
 		}
 
 		public ReturnVoucher build() {
-			return new ReturnVoucher(this.id, this.voucherCode, this.amount, this.balance, this.expirationDate, this.active, this.captureItemList);
+			return new ReturnVoucher(this.voucherCode, this.amount, this.balance, this.expirationDate, this.active, this.captureItems);
 		}
 
 		public String toString() {
-			return "ReturnVoucher.ReturnVoucherBuilder(id=" + this.id + ", voucherCode=" + this.voucherCode + ", amount=" + this.amount + ", balance=" + this.balance + ", expirationDate=" + this.expirationDate + ", active=" + this.active + ", captureItemList=" + this.captureItemList + ")";
+			return "ReturnVoucher.ReturnVoucherBuilder(voucherCode=" + this.voucherCode + ", amount=" + this.amount + ", balance=" + this.balance + ", expirationDate=" + this.expirationDate + ", active=" + this.active + ", captureItems=" + this.captureItems + ")";
 		}
 	}
 }
