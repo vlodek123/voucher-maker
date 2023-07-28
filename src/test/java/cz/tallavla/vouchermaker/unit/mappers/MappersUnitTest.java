@@ -7,13 +7,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @DisplayName("Mappers Unit Test")
+@DirtiesContext
 public class MappersUnitTest {
 
 	@Autowired
@@ -25,7 +29,7 @@ public class MappersUnitTest {
 	@DisplayName("Get Json String")
 	public void getJsonString() {
 
-		String expectedJson = "{\"amount\":\"1000\"}";
+		String expectedJson = "{\"amount\":1000}";
 		NewVoucher source = new NewVoucher(new BigDecimal("1000"));
 
 		var actual =  mappers.getJsonString(source);

@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 
 public class NewVoucher {
 
-	//TODO: anotace pro Object Mapper
 	private BigDecimal amount;
 
 	public NewVoucher() {

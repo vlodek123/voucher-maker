@@ -6,6 +6,8 @@ public class ErrorResponse {
 	private String type;
 	private String message;
 
+	private Long id;
+
 	public ErrorResponse(String message) {
 		this.message = message;
 	}
@@ -14,6 +16,14 @@ public class ErrorResponse {
 		this.error = error;
 		this.type = type;
 		this.message = message;
+
+	}
+
+	public ErrorResponse(String error, String type, String message, Long id) {
+		this.error = error;
+		this.type = type;
+		this.message = message;
+		this.id = id;
 	}
 
 	public ErrorResponse() {
@@ -41,5 +51,13 @@ public class ErrorResponse {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

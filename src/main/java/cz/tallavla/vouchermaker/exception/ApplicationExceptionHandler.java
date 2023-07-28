@@ -38,7 +38,7 @@ public class ApplicationExceptionHandler {
 
 	@ExceptionHandler(CaptureException.class)
 	public ResponseEntity<Object> handleCaptureException(CaptureException ex) {
-		ErrorResponse error = new ErrorResponse("100107", "PROCESSING ERROR", ex.getLocalizedMessage());
+		ErrorResponse error = new ErrorResponse("100107", "PROCESSING ERROR", ex.getLocalizedMessage(), ex.getId());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 

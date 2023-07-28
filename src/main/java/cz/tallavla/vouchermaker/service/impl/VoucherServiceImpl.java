@@ -96,14 +96,15 @@ public class VoucherServiceImpl implements VoucherService {
 		VoucherDTOReturned voucher = voucherForAction.get();
 
 		if (!isActionPossible(action, voucher.isActive())) {
-			throw new WrongVoucherActionException(String.format("Not possible to %s voucher %s", action, voucher.getVoucherCode()));
+			return InformationResponse.builder().info(String.format("Voucher was %sD.", action)).id(code).build();
+//			throw new WrongVoucherActionException(String.format("Not possible to %s voucher %s", action, voucher.getVoucherCode()));
 		}
 
 		switch (action) {
 			case ACTIVATE:
 				voucher.setActive(true);
 				break;
-			case DEACTIVATE:      //TODO: can be deactivated voucher processed ?
+			case DEACTIVATE:      //TODO: can be deactivated voucher processed ? NO !
 				voucher.setActive(false);
 				break;
 		}
@@ -158,12 +159,19 @@ public class VoucherServiceImpl implements VoucherService {
 				captureDAOService.saveCapture(savedCapture);
 				captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemsSaved, false));
 				log.info("Voucher not found. Capture not processed.");
-				throw new CaptureException("Voucher not found. Capture " + captureId + " not processed.");
+				throw new CaptureException("Voucher not found. Capture not processed.", captureId);
 			} else {
 
 				VoucherDTOReturned voucherToProcess = modelMapper.map(voucherFound.get(), VoucherDTOReturned.class);
 
-//				System.out.println("voucherToProcess: " + voucherToProcess);
+				System.out.println("voucherToProcess: " + voucherToProcess);
+				//check if voucher is ACTIVE
+				if (!voucherToProcess.isActive()) {
+					log.info("Voucher not ACTIVE. Capture not processed.");
+					savedCapture.setReason("Voucher not ACTIVE.");
+					captureDAOService.saveCapture(savedCapture);
+					throw new CaptureException("Voucher not ACTIVE. Capture not processed.", captureId);
+				}
 
 				BigDecimal balance = voucherToProcess.getBalance();
 				BigDecimal captureItemAmount = item.getCaptureAmount();
@@ -175,7 +183,7 @@ public class VoucherServiceImpl implements VoucherService {
 					captureItemDAOService.saveAllCaptureItems(setProcessedFlag(captureItemsSaved, false));
 					log.info("Not enough funds. Capture not processed.");
 					listOfSavedVoucherToProcess.clear();
-					throw new CaptureException("Not enough funds. Capture " + captureId + " not processed.");
+					throw new CaptureException("Not enough funds. Capture not processed.", captureId);
 				} else {
 
 					if (voucherFoundInList) {  //if voucher was already processed, change balance of voucher in list

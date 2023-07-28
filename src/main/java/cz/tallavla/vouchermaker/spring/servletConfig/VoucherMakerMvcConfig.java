@@ -25,14 +25,6 @@ import java.util.List;
 		"cz.talla.vouchermaker.controller"})
 public class VoucherMakerMvcConfig implements WebMvcConfigurer {
 
-
-	private final String brandId;
-
-	@Autowired
-	public VoucherMakerMvcConfig(@Value("#{brandId}") String brandId) { //TODO: not needed
-		this.brandId = brandId;
-	}
-
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer.defaultContentType(MediaType.APPLICATION_JSON);

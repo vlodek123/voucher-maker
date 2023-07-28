@@ -1,13 +1,17 @@
 package cz.tallavla.vouchermaker.controller;
 
+import cz.tallavla.vouchermaker.exception.ErrorResponse;
 import cz.tallavla.vouchermaker.exception.VoucherCodeIsNullException;
-import cz.tallavla.vouchermaker.exception.WrongFormatException;
 import cz.tallavla.vouchermaker.exception.WrongVoucherActionException;
-import cz.tallavla.vouchermaker.mappers.Mappers;
 import cz.tallavla.vouchermaker.model.controller.*;
 import cz.tallavla.vouchermaker.model.service.CaptureDTO;
 import cz.tallavla.vouchermaker.model.service.CaptureItemDTO;
 import cz.tallavla.vouchermaker.service.VoucherService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -17,15 +21,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static cz.tallavla.vouchermaker.utils.Constants.ACTIVATE;
 import static cz.tallavla.vouchermaker.utils.Constants.DEACTIVATE;
 
 @RestController
-@RequestMapping("/voucher")
+@RequestMapping("/vouchermaker")
 @Slf4j
+@Api(value = "Voucher maker API", tags = "Voucher Maker API", protocols = "http")
 public class VoucherController {
 
 	@Autowired
@@ -33,20 +37,34 @@ public class VoucherController {
 
 	private final ModelMapper modelMapper = new ModelMapper();
 
-	@PostMapping("/new")
+	@ApiOperation(value = "POST Voucher", consumes = "application/json", produces =  "application/json", notes = "Create Voucher")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "Valid response ", response = ReturnVoucher.class),
+			@ApiResponse(code = 401, message = "Validation failed", response = ErrorResponse.class),
+			@ApiResponse(code = 404, message = "Not found", response = ErrorResponse.class),
+			@ApiResponse(code = 500, message = "Operation failed, internal server error", response = ErrorResponse.class)
+	})
+	@PostMapping("/vouchers")
 	public ResponseEntity<ReturnVoucher> createVoucher(@RequestBody @Validated NewVoucher newVoucher) {
 
 			return new ResponseEntity<>(modelMapper.map(voucherService.createVoucher(newVoucher.getAmount()), ReturnVoucher.class), HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{code}")
+	@ApiOperation(value = "GET Voucher", consumes = "application/json", produces =  "application/json", notes = "Get Voucher")
+	@GetMapping("/vouchers/{code}")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "Valid response ", response = ReturnVoucher.class),
+			@ApiResponse(code = 401, message = "Validation failed", response = ErrorResponse.class),
+			@ApiResponse(code = 404, message = "Not found", response = ErrorResponse.class),
+			@ApiResponse(code = 500, message = "Operation failed, internal server error", response = ErrorResponse.class)
+	})
 	public ResponseEntity<ReturnVoucher> getVoucher(@PathVariable("code") String code) {
 		log.info("Getting voucher with code {}.", code);
 
 		return new ResponseEntity<>(modelMapper.map(voucherService.getVoucher(code), ReturnVoucher.class), HttpStatus.OK);
 	}
 
-	@PatchMapping(value = "/{code}/action")
+	@PatchMapping(value = "/vouchers/{code}/action")
 	public ResponseEntity<InformationResponse> voucherAction(
 			@PathVariable(value = "code") String code,
 			@RequestBody VoucherAction voucherAction) {
@@ -60,19 +78,19 @@ public class VoucherController {
 			throw new WrongVoucherActionException("Unsupported action from client: Only 'ACTIVATE' or 'DEACTIVATE' actions are supported.");
 		}
 
-		return new ResponseEntity<>(voucherService.actVoucher(code, action), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(voucherService.actVoucher(code, action), HttpStatus.OK);
 	}
 
-	@PostMapping("/capture")
+	@PostMapping("/captures")
 	public ResponseEntity<InformationResponse> captureAction(@RequestBody NewCapture newCapture) {
 
-		return new ResponseEntity<>(voucherService.actCapture(mapCapture(newCapture)), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(voucherService.actCapture(mapCapture(newCapture)), HttpStatus.OK);
 	}
 
-	@GetMapping("/capture/{id}")
+	@GetMapping("/captures/{id}")
 	public ResponseEntity<ReturnCapture> getCapture(@PathVariable(value = "id") Long id) {
 
-		return new ResponseEntity<>(modelMapper.map(voucherService.getCapture(id), ReturnCapture.class), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(modelMapper.map(voucherService.getCapture(id), ReturnCapture.class), HttpStatus.OK);
 	}
 
 	private CaptureDTO mapCapture(NewCapture newCapture) {
@@ -93,7 +111,7 @@ public class VoucherController {
 			if (testVoucherCodeForNull(captureItem.getVoucherCode())) {
 				captureItemDTO.setVoucherCode(captureItem.getVoucherCode());
 			} else {
-				throw new VoucherCodeIsNullException("Voucher Code is empty."); //TODO: as above
+				throw new VoucherCodeIsNullException("Voucher Code is empty.");
 			}
 			captureDTO.getCaptureItemDTOS().add(captureItemDTO);
 		}
