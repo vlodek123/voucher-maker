@@ -1,15 +1,25 @@
 package cz.tallavla.vouchermaker.model.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@ApiModel(description = "Voucher model Information")
 public class ReturnVoucher {
+	@ApiModelProperty(value = "Voucher code")
 	private String voucherCode;
+	@ApiModelProperty(value = "Voucher amount")
 	private BigDecimal amount;
+	@ApiModelProperty(value = "Voucher balance")
 	private BigDecimal balance;
+	@ApiModelProperty(value = "Voucher expirationDate")
 	private LocalDateTime expirationDate;
+	@ApiModelProperty(value = "Voucher active")
 	private boolean active;
+	@ApiModelProperty(value = "Voucher captureItems")
 	private List<ReturnCaptureItem> captureItems;
 
 	public static ReturnVoucherBuilder builder() {

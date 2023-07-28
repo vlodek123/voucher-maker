@@ -1,23 +1,31 @@
 package cz.tallavla.vouchermaker.model.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@ApiModel(description = "ReturnCapture model Information")
 public class ReturnCapture {
 
+	@ApiModelProperty(value = "ReturnCapture id")
 	private Long id;
 
+	@ApiModelProperty(value = "ReturnCapture createdDate")
 	private LocalDateTime createdDate;
 
-
+	@ApiModelProperty(value = "ReturnCapture numberOfItems")
 	private int numberOfItems;
 
-
+	@ApiModelProperty(value = "ReturnCapture processed")
 	private boolean processed;
 
+	@ApiModelProperty(value = "ReturnCapture reason")
 	private String reason;
 
+	@ApiModelProperty(value = "ReturnCapture captureItems")
 	private List<ReturnCaptureItem> captureItems;
 
 	public static ReturnCaptureBuilder builder() {

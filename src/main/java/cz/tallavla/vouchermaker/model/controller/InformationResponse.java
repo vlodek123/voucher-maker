@@ -1,9 +1,16 @@
 package cz.tallavla.vouchermaker.model.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Objects;
 
+@ApiModel(description = "InformationResponse model Information")
 public class InformationResponse {
+	@ApiModelProperty(value = "InformationResponse info")
 	private String info;
+
+	@ApiModelProperty(value = "InformationResponse id")
 	private String id;
 
 	public static InformationResponseBuilder builder() {

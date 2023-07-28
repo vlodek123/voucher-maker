@@ -1,10 +1,15 @@
 package cz.tallavla.vouchermaker.model.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
+@ApiModel(description = "Capture model Information")
 public class NewCapture {
 
+	@ApiModelProperty(value = "Capture captureItems")
 	private ArrayList<NewCaptureItem> captureItems;
 
 	public NewCapture(ArrayList<NewCaptureItem> captureItems) {

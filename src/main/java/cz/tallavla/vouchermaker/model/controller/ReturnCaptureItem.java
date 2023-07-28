@@ -1,21 +1,30 @@
 package cz.tallavla.vouchermaker.model.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@ApiModel(description = "Capture item model Information")
 public class ReturnCaptureItem {
 
+	@ApiModelProperty(value = "Capture item id")
 	private Long id;
 
+	@ApiModelProperty(value = "Capture item voucherCode")
 	private String voucherCode;
 
+	@ApiModelProperty(value = "Capture item captureAmount")
 	private BigDecimal captureAmount;
 
+	@ApiModelProperty(value = "Capture item processed")
 	private boolean processed;
+	@ApiModelProperty(value = "Capture items capture")
 	@JsonIgnore
 	private ReturnCapture capture;
+	@ApiModelProperty(value = "Capture items voucher")
 	@JsonIgnore
 	private ReturnVoucher voucher;
 

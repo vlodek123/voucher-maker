@@ -1,14 +1,14 @@
 package cz.tallavla.vouchermaker.model.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
 
+@ApiModel(description = "NewVoucher model Information")
 public class NewVoucher {
 
+	@ApiModelProperty(value = "NewVoucher amount")
 	private BigDecimal amount;
 
 	public NewVoucher() {

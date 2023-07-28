@@ -1,12 +1,18 @@
 package cz.tallavla.vouchermaker.model.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@ApiModel(description = "NewCaptureItem model Information")
 public class NewCaptureItem {
 
+	@ApiModelProperty(value = "NewCapture item voucher code")
 	private String voucherCode;
 
+	@ApiModelProperty(value = "NewCapture item amount")
 	private BigDecimal captureAmount;
 
 	public static NewCaptureItemBuilder builder() {return new NewCaptureItemBuilder();}
