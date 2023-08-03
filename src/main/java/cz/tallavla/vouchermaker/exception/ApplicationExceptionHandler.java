@@ -3,11 +3,14 @@ package cz.tallavla.vouchermaker.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Arrays;
+import java.util.Date;
 
 @ControllerAdvice
 public class ApplicationExceptionHandler {
@@ -60,4 +63,22 @@ public class ApplicationExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Object> handleVoucherNotFoundException(AccessDeniedException ex) {
+		ErrorResponse error = new ErrorResponse("100000","UNAUTHORIZED", ex.getLocalizedMessage());
+		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(VoucherMakerAPIException.class)
+	public ResponseEntity<Object> handleBlogAPIException(VoucherMakerAPIException exception){
+		ErrorResponse error = new ErrorResponse("110000", "BAD REQUEST", exception.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	// global exceptions
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Object> handleGlobalException(Exception exception,
+															  WebRequest webRequest){
+		ErrorResponse error = new ErrorResponse("110001", "INTERNAL SERVER ERROR", exception.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

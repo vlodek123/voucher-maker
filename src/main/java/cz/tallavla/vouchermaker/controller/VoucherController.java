@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,7 @@ public class VoucherController {
 //			@ApiResponse(code = 404, message = "Not found", response = ErrorResponse.class),
 //			@ApiResponse(code = 500, message = "Operation failed, internal server error", response = ErrorResponse.class)
 //	})
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/vouchers")
 	public ResponseEntity<ReturnVoucher> createVoucher(@RequestBody @Validated NewVoucher newVoucher) {
 
@@ -61,6 +63,7 @@ public class VoucherController {
 		return new ResponseEntity<>(modelMapper.map(voucherService.getVoucher(code), ReturnVoucher.class), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@ApiOperation(value = "REST API to act Voucher", consumes = "application/json", produces =  "application/json", notes = "Act Voucher")
 	@PatchMapping(value = "/vouchers/{code}/action")
 	public ResponseEntity<InformationResponse> voucherAction(
@@ -79,6 +82,7 @@ public class VoucherController {
 		return new ResponseEntity<>(voucherService.actVoucher(code, action), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@ApiOperation(value = "REST API to create Capture", consumes = "application/json", produces =  "application/json", notes = "Create Voucher")
 	@PostMapping("/captures")
 	public ResponseEntity<InformationResponse> captureAction(@RequestBody NewCapture newCapture) {

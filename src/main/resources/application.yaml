@@ -20,6 +20,13 @@ spring:
     user: voucher_admin
     password: 123456
 
+
+#  security:
+#    user:
+#      name: vlada
+#      password: 1234
+#      roles: ADMIN
+
 management:
   endpoints:
     web:
@@ -31,3 +38,4 @@ springfox:
     swagger:
       v2:
         path: /vouchermaker/swagger.json
+

@@ -4,9 +4,9 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
     <changeSet author="VT" id="11">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="voucher"/>
-            <columnExists tableName="voucher" columnName="cislo"/>
+            <tableExists tableName="vouchers"/>
+            <columnExists tableName="vouchers" columnName="cislo"/>
         </preConditions>
-        <dropColumn tableName="voucher" columnName="cislo"/>
+        <dropColumn tableName="vouchers" columnName="cislo"/>
     </changeSet>
 </databaseChangeLog>
