@@ -40,8 +40,9 @@ public class SecurityConfig {
 		http.csrf().disable()
 				.authorizeHttpRequests((authorize) ->
 //						authorize.anyRequest().authenticated()
-								authorize.regexMatchers(HttpMethod.GET, "/vouchemaker/*").permitAll() //TODO: nefunguje povoleni bez autentikace
-										.regexMatchers(HttpMethod.GET, "/actuator/*").permitAll()
+								authorize.antMatchers(HttpMethod.GET, "/actuator/**", "/vouchermaker/**").permitAll()
+										//.antMatchers(HttpMethod.GET, "/vouchemaker/**").permitAll()
+									//	.regexMatchers(HttpMethod.GET, "/actuator/*").permitAll()
 										.regexMatchers(HttpMethod.POST, "/vouchermaker/auth/login").permitAll()
 										.regexMatchers(HttpMethod.POST, "/vouchermaker/auth/signin").permitAll()
 										.regexMatchers(HttpMethod.POST, "/vouchermaker/auth/register").permitAll()
