@@ -60,4 +60,15 @@ public class ApplicationExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(VoucherMakerAPIException.class)
+	public ResponseEntity<Object> handleBlogAPIException(VoucherMakerAPIException exception){
+		ErrorResponse error = new ErrorResponse("110000", "BAD REQUEST", exception.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	// global exceptions
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<Object> handleGlobalException(Exception exception){
+//		ErrorResponse error = new ErrorResponse("110001", "INTERNAL SERVER ERROR", exception.getMessage());
+//		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
 }

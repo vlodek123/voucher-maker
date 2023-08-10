@@ -9,5 +9,6 @@
   http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
     <include  file="db/changelog/baseline-changelog.xml"/>
     <include  file="db/changelog/add-cislo-to-voucher.xml"/>
-<!--    <include  file="db/changelog/remove_column_cislo.xml"/>-->
+    <include  file="db/changelog/remove_column_cislo.xml"/>
+    <include  file="db/changelog/users_roles_changelog.xml"/>
 </databaseChangeLog>

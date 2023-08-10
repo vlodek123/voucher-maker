@@ -26,3 +26,16 @@ Swagger:
 --------
 
      http://localhost:8085/swagger-ui/index.html
+
+Actuator:
+---------
+
+    http://localhost:8085/actuator
+
+    http://localhost:8085/actuator/metrics/http.server.requests
+    http://localhost:8085/actuator/health
+
+Liquibase:
+----------
+
+To execute set  property liquibase.enabled to true  
