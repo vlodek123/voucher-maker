@@ -1,6 +1,7 @@
 package cz.tallavla.vouchermaker.service.impl;
 
 import cz.tallavla.vouchermaker.config.CodeConfig;
+import cz.tallavla.vouchermaker.controller.VoucherController;
 import cz.tallavla.vouchermaker.daoservice.CaptureDAOService;
 import cz.tallavla.vouchermaker.daoservice.CaptureItemDAOService;
 import cz.tallavla.vouchermaker.daoservice.VoucherDOAService;
@@ -12,9 +13,9 @@ import cz.tallavla.vouchermaker.mappers.Mappers;
 import cz.tallavla.vouchermaker.model.controller.InformationResponse;
 import cz.tallavla.vouchermaker.model.service.*;
 import cz.tallavla.vouchermaker.service.VoucherService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +31,9 @@ import static cz.tallavla.vouchermaker.utils.VoucherCodeGenerator.generateCode;
 
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class VoucherServiceImpl implements VoucherService {
 
+	private final static Logger log = LoggerFactory.getLogger(VoucherController.class);
 	@Autowired
 	VoucherDOAService voucherDOAService;
 	@Autowired

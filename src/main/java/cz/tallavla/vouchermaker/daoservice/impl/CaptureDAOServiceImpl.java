@@ -1,22 +1,22 @@
 package cz.tallavla.vouchermaker.daoservice.impl;
 
+import cz.tallavla.vouchermaker.controller.VoucherController;
 import cz.tallavla.vouchermaker.daoservice.CaptureDAOService;
 import cz.tallavla.vouchermaker.model.repository.Capture;
 import cz.tallavla.vouchermaker.model.service.CaptureDTOReturned;
 import cz.tallavla.vouchermaker.repository.CaptureRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class CaptureDAOServiceImpl implements CaptureDAOService {
 
+	private final static Logger log = LoggerFactory.getLogger(VoucherController.class);
 	ModelMapper modelMapper = new ModelMapper();
 	@Autowired
 	private CaptureRepository captureRepository;

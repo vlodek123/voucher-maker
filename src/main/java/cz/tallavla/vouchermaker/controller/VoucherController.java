@@ -8,10 +8,10 @@ import cz.tallavla.vouchermaker.model.service.CaptureItemDTO;
 import cz.tallavla.vouchermaker.service.VoucherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +25,10 @@ import static cz.tallavla.vouchermaker.utils.Constants.DEACTIVATE;
 
 @RestController
 @RequestMapping("/vouchermaker")
-@Slf4j
 @Api(value = "CRUD Rest API for Voucher maker", tags = "Voucher Maker API", protocols = "http")
 public class VoucherController {
+
+	private final static Logger log = LoggerFactory.getLogger(VoucherController.class);
 
 	@Autowired
 	private VoucherService voucherService;

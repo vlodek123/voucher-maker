@@ -1,5 +1,6 @@
 package cz.tallavla.vouchermaker.unit.service;
 
+import cz.tallavla.vouchermaker.controller.VoucherController;
 import cz.tallavla.vouchermaker.daoservice.CaptureDAOService;
 import cz.tallavla.vouchermaker.daoservice.CaptureItemDAOService;
 import cz.tallavla.vouchermaker.daoservice.VoucherDOAService;
@@ -10,9 +11,10 @@ import cz.tallavla.vouchermaker.model.service.CaptureDTOReturned;
 import cz.tallavla.vouchermaker.model.service.CaptureItemDTOReturned;
 import cz.tallavla.vouchermaker.model.service.VoucherDTOReturned;
 import cz.tallavla.vouchermaker.service.VoucherService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -26,16 +28,18 @@ import java.util.Optional;
 
 import static cz.tallavla.vouchermaker.testutils.TestUtils.readJsonFileToClassObject;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @DisplayName("Voucher Service Unit Test")
-@Slf4j
 @DirtiesContext
 public class VoucherServiceUnitTest {
 
+	private final static Logger log = LoggerFactory.getLogger(VoucherController.class);
 	@Autowired
 	private VoucherService voucherService;
 

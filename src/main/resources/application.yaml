@@ -20,6 +20,12 @@ spring:
     user: voucher_admin
     password: 123456
 
+  application:
+    exitCode: 10
+
+custom:
+  exitMessage: Admin user not found. Application cannot start.
+
 management:
   endpoints:
     web:

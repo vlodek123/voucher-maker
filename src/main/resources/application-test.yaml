@@ -21,3 +21,6 @@ spring:
     change-log: db/changelog/test-changelog-master.xml
     user: admin
     password: 1234
+
+  profile:
+    active: test

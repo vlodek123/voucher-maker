@@ -1,13 +1,15 @@
 package cz.tallavla.vouchermaker.unit.daoservice;
 
+import cz.tallavla.vouchermaker.controller.VoucherController;
 import cz.tallavla.vouchermaker.daoservice.VoucherDOAService;
 import cz.tallavla.vouchermaker.model.repository.Voucher;
 import cz.tallavla.vouchermaker.model.service.VoucherDTO;
 import cz.tallavla.vouchermaker.model.service.VoucherDTOReturned;
 import cz.tallavla.vouchermaker.repository.VoucherRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,17 +22,18 @@ import java.util.List;
 import java.util.Optional;
 
 import static cz.tallavla.vouchermaker.testutils.TestUtils.readJsonFileToClassObject;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
 @DisplayName("Voucher DAOService Unit Test")
-@Slf4j
 @DirtiesContext
 public class VoucherDOAServiceUnitTest {
 
+	private final static Logger log = LoggerFactory.getLogger(VoucherController.class);
 	@Autowired
 	private VoucherDOAService voucherDOAService;
 
